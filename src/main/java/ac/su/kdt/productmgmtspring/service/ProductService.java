@@ -16,7 +16,6 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public ProductResponseDTO create(ProductRequestDTO productRequestDTO) {
-        // TODO : 상품 등록 로직 구현 (테스트 필요)
         Product product = new Product();
         product.setName(productRequestDTO.getName());
         product.setPrice(productRequestDTO.getPrice());
