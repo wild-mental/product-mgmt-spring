@@ -5,6 +5,7 @@ import ac.su.kdt.productmgmtspring.domain.dto.ProductResponseDTO;
 import ac.su.kdt.productmgmtspring.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,9 +33,23 @@ public class ProductController {
     }
     // 2) 상품 전체 조회 (페이징 처리)
     @GetMapping
-    public Page<ProductResponseDTO> readPage() {
+    public Page<ProductResponseDTO> readPage(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ) {
         // 상품 전체 조회 로직
-        return productService.readPage();
+        return productService.readPage(
+            PageRequest.of(page, size)
+        );
+    }
+
+    @GetMapping("/")
+    public Page<ProductResponseDTO> readPageSlash(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ) {
+        // forwarding 방식으로는 동작하지 않음 (RestController 이기 때문)
+        return readPage(page, size);
     }
 
     // 3) 상품 단건 조회
