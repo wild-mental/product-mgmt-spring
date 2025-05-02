@@ -36,6 +36,8 @@ public class ProductTemplateController {
     ) {
         // 상품 전체 조회 로직
         model.addAttribute("product_list", productService.readAll());
+        model.addAttribute("valid_status", List.of("PREPARING", "IN_STOCK"));
+        model.addAttribute("invalid_status", List.of("SOLD_OUT", "INVALID", "DELETED"));
         return "thymeleaf/products/products-list";
     }
 
