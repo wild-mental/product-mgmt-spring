@@ -31,6 +31,8 @@ public class Product {
     private LocalDateTime updatedAt;
 
     // prePersist, preUpdate
+    // 기본값 처리 + @ 로 사용할 수 있다
+    // 유효성 검사 및 데이터 전처리 (Formatting, 길이 조정 등)도 가능
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
@@ -42,6 +44,7 @@ public class Product {
         this.updatedAt = LocalDateTime.now();
     }
 
+    // toString 오버라이딩을 통해 자동 JSON 타입 변환 시 순환 참조 출력 문제 해결 필요
     @Override
     public String toString() {
         return "Product{" +
